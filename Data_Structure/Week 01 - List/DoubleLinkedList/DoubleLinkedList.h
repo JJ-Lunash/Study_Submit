@@ -5,7 +5,7 @@
 #include <stddef.h>
 
 typedef struct _node {
-    int value;
+    int Value;
     struct _node *next;
     struct _node *prev;
 }       ListNode;
