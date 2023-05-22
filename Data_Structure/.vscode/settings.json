@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "numbers": "cpp",
+        "vector": "c",
+        "vector.h": "c",
+        "stddef.h": "c",
+        "stdio.h": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "utility": "c"
+    }
+}
