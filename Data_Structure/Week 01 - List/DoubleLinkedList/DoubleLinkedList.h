@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdlib.h> // malloc을 위해 추가
 
 typedef struct _node {
     int Value;
@@ -20,23 +21,23 @@ DoubleLinkedList *createDoubleLinkedList();
 DoubleLinkedList *copyDoubleLinkedList(DoubleLinkedList *List);
 ListNode *createNode(int value);
 
-bool addNode(DoubleLinkedList *List, ListNode *node, int index);
+bool addNode(DoubleLinkedList *List, ListNode *node, size_t index); // int -> size_t 수정
 bool addNodeToHead(DoubleLinkedList *List, ListNode *node);
 bool addNodeToTail(DoubleLinkedList *List, ListNode *node);
-bool removeNodeByIndex(DoubleLinkedList *List, int index);
+bool removeNodeByIndex(DoubleLinkedList *List, size_t index); // int -> size_t 수정
 bool removeHeadNode(DoubleLinkedList *List);
 bool removeTailNode(DoubleLinkedList *List);
 
-ListNode *getNodeByIndex(DoubleLinkedList *List, int index);
+ListNode *getNodeByIndex(DoubleLinkedList *List, size_t index); // int -> size_t 수정
 ListNode *getHeadNode(DoubleLinkedList *List);
 ListNode *getLastNode(DoubleLinkedList *List);
 
-int getValueByIndex(DoubleLinkedList *List, int index);
+int getValueByIndex(DoubleLinkedList *List, size_t index); // int -> size_t 수정
 
 size_t getSizeDoubleLinkedList(DoubleLinkedList *List);
 bool isEmptyDoubleLinkedList(DoubleLinkedList *List);
 
-void displayDoubleLinkedList(DoubleLinkedList *List);
+int displayDoubleLinkedList(DoubleLinkedList *List); //void로는 how?
 void clearDoubleLinkedList(DoubleLinkedList *List);
 void distroyDoubleLinkedList(DoubleLinkedList *List);
 

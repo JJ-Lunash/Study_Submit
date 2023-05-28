@@ -29,3 +29,6 @@ void clearPriorityQueue(PriorityQueue *PriorityQueue);
 void destroyPriorityQueue(PriorityQueue *PriorityQueue);
 
 #endif // __PRIORITYPriorityQueue__
+
+// 추가로 힙 자료구조에 대해서도 알아보기
+// 우선순위 큐와 힙의 차이에 대해 알기

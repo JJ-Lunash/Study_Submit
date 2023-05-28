@@ -1,4 +1,6 @@
 #include "DoubleLinkedList.h"
+#include <stdio.h> // for test
+#define TEST_SIZE 10 // for test
 
 DoubleLinkedList *createDoubleLinkedList()
 {
@@ -33,10 +35,10 @@ ListNode *createNode(int value)
 }
 
 
-bool addNode(DoubleLinkedList *List, ListNode *node, int index) 
+bool addNode(DoubleLinkedList *List, ListNode *node, size_t index) 
 {
     ListNode *midNode = List->head;
-    int i = 1;
+    size_t i = 1;
 
     while(midNode != NULL)
     {
@@ -73,7 +75,7 @@ bool addNodeToHead(DoubleLinkedList *List, ListNode *node)
     else
     {
         List->head->prev = node;
-        node->prev == NULL;
+        node->prev = NULL;
         node->next = List->head;
         List->head = node; // List = node에서 수정
         List->size += 1; // 새로 추가
@@ -113,10 +115,10 @@ bool addNodeToTail(DoubleLinkedList *List, ListNode *node)
 }
 
 
-bool removeNodeByIndex(DoubleLinkedList *List, int index)
+bool removeNodeByIndex(DoubleLinkedList *List, size_t index)
 {
     ListNode *tmpNode = List->head;
-    int i = 0;
+    size_t i = 0;
 
     if (List == NULL || index >= List->size) // if문 예외처리 새로 추가 , index > 에서 수정
         return (false);
@@ -167,7 +169,7 @@ bool removeHeadNode(DoubleLinkedList *List)
 
     List->head = List->head->next;
     free(List->head->prev);
-    List->head->prev == NULL;
+    List->head->prev = NULL;
 
     return (true);
 }
@@ -177,14 +179,15 @@ bool removeTailNode(DoubleLinkedList *List)////////이거도다시봦!!!!!!!!!
 {
     List->tail = List->tail->prev;
     free(List->tail->next);
-    List->tail->next;
+    
+    return (true);
 }
 
 
-ListNode *getNodeByIndex(DoubleLinkedList *List, int index)
+ListNode *getNodeByIndex(DoubleLinkedList *List, size_t index)
 {
     ListNode *findNode = List->head;
-    int i = 0;
+    size_t i = 0;
 
     if (List == NULL || index >= List->size)
         return (NULL);
@@ -203,7 +206,7 @@ ListNode *getNodeByIndex(DoubleLinkedList *List, int index)
 ListNode *getHeadNode(DoubleLinkedList *List)
 {
     if (List == NULL)
-        reutrn (NULL);
+        return (NULL);
 
     return (List->head);
 }
@@ -223,10 +226,10 @@ ListNode *getLastNode(DoubleLinkedList *List)
 }
 
 
-int getValueByIndex(DoubleLinkedList *List, int index)
+int getValueByIndex(DoubleLinkedList *List, size_t index)
 {
     ListNode *findNode = List->head;
-    int i = 0;
+    size_t i = 0;
 
     if (List == NULL || index >= List->size)
         return 0;
