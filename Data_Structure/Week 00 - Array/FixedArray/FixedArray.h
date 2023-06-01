@@ -7,6 +7,7 @@
 typedef struct _fixedArray {
     int *storage;
     size_t size;
+    size_t capacity; // 추가
 }       FixedArray;
 
 FixedArray *createFixedArray(size_t size);

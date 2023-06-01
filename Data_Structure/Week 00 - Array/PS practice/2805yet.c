@@ -17,7 +17,7 @@ long long binSearch (long long *treeList, long long N, long long M, long long ri
                 sum += (treeList[i] - mid);
             i++;
         }
-        if ((sum >= M && (rights - left == 0 || right - left == 1)) || sum == M)
+        if ((sum >= M && (right - left == 0 || right - left == 1)) || sum == M)
         {
             cutMax = mid;
             break;
