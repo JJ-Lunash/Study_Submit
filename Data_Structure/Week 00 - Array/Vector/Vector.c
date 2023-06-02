@@ -14,6 +14,7 @@ void error(char *errorMessage)
 Vector *createVector(size_t capacity)
 {
     Vector *newVec = 0;
+    newVec = (Vector *)malloc(sizeof(Vector));
 
     if (newVec->capacity == 0)
         return (NULL);
@@ -32,12 +33,14 @@ Vector *copyVector(Vector *vector)
     if (vector == NULL)
         return (NULL);
 
-    Vector *copyVec = (Vector *)malloc(sizeof(Vector));
-    copyVec->size = vector->size;
-    copyVec->capacity = vector->capacity;
-    copyVec->data = (int *)malloc(sizeof(int) * copyVec->capacity);
-    size_t i = 0;
+    // 아래 주석 부분의 경우, createVector와 로직이 겹친다 -> 해당 함수 활용해주자
+    // Vector *copyVec = (Vector *)malloc(sizeof(Vector));
+    // copyVec->data = (int *)malloc(sizeof(int) * copyVec->capacity);
+    // copyVec->capacity = vector->capacity;
+    // copyVec->size = vector->size; // 크기는 보통 맨 밑에 써주는 것이 좋음
+    Vector *copyVec = createVector(vector->capacity);
 
+    size_t i = 0;
     while (i < copyVec->size)
     {
         copyVec->data[i] = vector->data[i];
@@ -47,33 +50,60 @@ Vector *copyVector(Vector *vector)
     return (copyVec);
 }
 
+// 처음에 작성했던 pushBack 함수
+
+// bool pushBack(Vector *vector, int value)
+// {
+//     if (vector == NULL)
+//         return (false);
+
+//     size_t i = 0;
+
+//     if (vector->size < vector->capacity) // 이 부분 역시 내가 만든 다른 함수 사용 가능: if (getSize(vector) == getCapacity(vector))
+//         vector->data[vector->size] = value;
+//     else
+//     {
+//         vector->capacity *= 2;
+//         int *newData = (int *)malloc(sizeof(int) * vector->capacity);
+//         while (i < vector->size)
+//         {
+//             newData[i] = vector->data[i];
+//             i++;
+//         }
+//         newData[i] = value;
+//         vector->data = newData;
+//     }
+//     vector->size += 1;
+
+//     return (true);
+// }
 
 bool pushBack(Vector *vector, int value)
 {
     if (vector == NULL)
         return (false);
 
-    size_t i = 0;
-
-    if (vector->size < vector->capacity)
+    if (getSize(vector) == getCapacity(vector))
     {
-        vector->data[vector->size] = value;
-    }
-    else
-    {
-        vector->capacity *= 2;
-        int *newData = (int *)malloc(sizeof(int) * vector->capacity);
+         // 공식 문서를 보면 capacity가 0인 경우에도 vector 틀은 create 가능, capacity가 0인데 데이터 추가할 경우 capacity 1로 해서 데이터 추가해주기
+        if (vector->capacity == 0)
+            vector->capacity = 1;
+        
+        size_t i = 0;
+        Vector *resizeVec = createVector(vector->capacity * 2);
         while (i < vector->size)
-        {
-            newData[i] = vector->data[i];
-            i++;
-        }
-        newData[i] = value;
-        vector->data = newData;
+            pushBack(resizeVec, vector->data[i]);
+        pushBack(resizeVec, value);
+        resizeVec->size = vector->size + 1; // 빠뜨렸다가 나중에 추가
+        Vector *tmp = vector;
+        vector = resizeVec;
+        destroyVector(tmp);
     }
-    vector->size += 1;
+
+    vector->data[vector->size] = value;
 
     return (true);
+
 }
 
 
@@ -88,7 +118,7 @@ bool popBack(Vector *vector)
     return (true);
 }
 
-
+// insert, erase, get 함수 업데이트 아직 
 bool insert(Vector *vector, size_t index, int value)
 {
     if (vector == NULL || index > vector->capacity - 1)
@@ -154,25 +184,30 @@ size_t getCapacity(Vector *vector)
 
 bool isEmpty(Vector *vector)
 {
-    if (vector == NULL)
-        return (false);
+    // if (vector == NULL)
+    //     return (false);
 
-    if (vector->size == 0)
-        return (true);
+    // if (vector->size == 0)
+    //     return (true);
 
-    return (false);
+    // return (false);
+
+    // 위와 같이 매우 이분법적이곡 간단한 것은 삼항연산자 사용하면 한 줄로 확 줄일 수 있음
+    return (vector == NULL || vector->size > 0 ? false : true);
 }
 
 
 bool isFull(Vector *vector)
 {
-    if (vector == NULL)
-        return (false);
+    // if (vector == NULL)
+    //     return (false);
 
-    if (vector->size == vector->capacity)
-        return (true);
+    // if (vector->size == vector->capacity)
+    //     return (true);
 
-    return (false);
+    // return (false);
+
+    return ((vector != NULL) && (getSize(vector) == getCapacity(vector)) ? true : false);
 }
 
 

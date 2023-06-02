@@ -36,7 +36,6 @@ void destroyVector(Vector *vector);
 #endif // __FIXEDARRAY__
 
 /*
-정리할 것들
-    - 구조체복사 시 주의할 것 / 얕은 & 깊은 복사
-    -
+벡터란? 길이가 변하는 집합, 방향, 자료구조
+어떻게 변하나? cpp Vector의 경우, 기존 capacity만큼 다 차고나면 *2 만큼 늘리기 (resize 행위)
 */
