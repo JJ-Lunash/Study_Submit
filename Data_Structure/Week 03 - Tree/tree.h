@@ -16,7 +16,7 @@ node *root;
 node *createNode(int data);
 node* insert(node* root,int data);
 node* findLowest(node* root);
-node* delete(node* root,int data);
+node* delete(node* root, int data);
 void printNode(node* root);
 
 void preorderPrint(node* root); // 전위 순회
